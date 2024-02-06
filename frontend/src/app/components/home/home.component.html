@@ -7,6 +7,8 @@
     </thead>
     <tbody *ngFor="let user of users">
         <td *ngIf="user.username != username">{{ user.username }}</td>
-        <td *ngIf="user.username != username"><button (click)="likesMe(user.id)">Me gusta!</button></td>
+        <td *ngIf="user.username != username && othersLikesMe.includes(user.id) && myLikes.includes(user.id)">Match!!!</td>
+        <td *ngIf="user.username != username && !myLikes.includes(user.id)"><button (click)="giveLike(user.id)">Me gusta!</button></td>
+        <td *ngIf="user.username != username && myLikes.includes(user.id) && !othersLikesMe.includes(user.id)">Ya Me gusta!!!</td>
     </tbody>
 </table>

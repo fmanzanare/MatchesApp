@@ -32,7 +32,10 @@ export class LoginComponent {
 
     this.service.login(this.user).subscribe({
       next: res => {
-        console.log(res)
+        if (res.error) {
+          alert("Datos de acceso incorrectos!")
+          return
+        }
         sessionStorage.setItem('myId', res.user_id)
         sessionStorage.setItem('myUsername', this.username)
         this.router.navigate(['home'])

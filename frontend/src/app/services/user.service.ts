@@ -12,6 +12,8 @@ export class UserService {
   private BASE_URL: string = 'http://192.168.192.52:8080/api/user'
   private LOGIN_URL: string = 'http://192.168.192.52:8080/api/user/login'
   private MATCH_URL: string = 'http://192.168.192.52:8080/api/user/match'
+  private LIKES_URL: string = 'http://192.168.192.52:8080/api/user/likes'
+  private OTHER_URL: string = 'http://192.168.192.52:8080/api/user/other-likes'
   private headers: HttpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
 
   constructor(private http: HttpClient) { }
@@ -26,5 +28,17 @@ export class UserService {
 
   like(like: Like): Observable<any> {
     return this.http.post<any>(this.MATCH_URL, like, {headers: this.headers})
+  }
+
+  getUserById(id: number): Observable<any> {
+    return this.http.get<any>(this.BASE_URL + `/${id}`)
+  }
+
+  getMyLikes(id: number): Observable<any> {
+    return this.http.get<any>(this.LIKES_URL + `/${id}`)
+  }
+
+  getOthersLikesMe(id: number): Observable<any> {
+    return this.http.get<any>(this.OTHER_URL + `/${id}`)
   }
 }
