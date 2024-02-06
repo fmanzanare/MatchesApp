@@ -1,0 +1,12 @@
+<h1>Bienvenido {{ username }}</h1>
+
+<table>
+    <thead>
+        <th>Username</th>
+        <th>Dar Like</th>
+    </thead>
+    <tbody *ngFor="let user of users">
+        <td *ngIf="user.username != username">{{ user.username }}</td>
+        <td *ngIf="user.username != username"><button (click)="likesMe(user.id)">Me gusta!</button></td>
+    </tbody>
+</table>
