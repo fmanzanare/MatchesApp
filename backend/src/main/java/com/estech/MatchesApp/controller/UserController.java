@@ -1,5 +1,6 @@
 package com.estech.MatchesApp.controller;
 
+import com.estech.MatchesApp.model.Like;
 import com.estech.MatchesApp.model.User;
 import com.estech.MatchesApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,11 @@ public class UserController {
     @PostMapping("/login")
     public Map<String, String> login(@RequestBody User recibedUser) {
         return userService.login(recibedUser);
+    }
+
+    @PostMapping("/match")
+    public Map<String, String> match(@RequestBody Like like) {
+        return userService.match(like.getUserOneId(), like.getUserTwoId());
     }
 
 }

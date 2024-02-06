@@ -46,4 +46,12 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "userOneId")
     )
     private Set<User> otherLikesToMe = new HashSet<>();
+
+    public void addToMyLikes(User user) {
+        myLikes.add(user);
+    }
+
+    public void addToOtherLikes(User user) {
+        otherLikesToMe.add(user);
+    }
 }

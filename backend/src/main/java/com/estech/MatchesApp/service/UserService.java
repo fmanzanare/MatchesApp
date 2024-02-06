@@ -29,9 +29,23 @@ public class UserService {
             if(user.getUsername().equals(recibedUser.getUsername()) && user.getPassword().equals(recibedUser.getPassword())) {
                 map.clear();
                 map.put("success", "Login Started");
+                map.put("user_id", user.getId().toString());
             }
         });
 
+        return map;
+    }
+
+    public Map<String, String> match(Long idUserOne, Long idUserTwo) {
+        User userOne = userRepository.findById(idUserOne).orElse(null);
+        User userTwo = userRepository.findById(idUserTwo).orElse(null);
+        Map<String, String> map = new HashMap<>();
+
+        if(userOne != null && userTwo != null) {
+            userOne.addToMyLikes(userTwo);
+            userTwo.addToOtherLikes(userOne);
+            map.put("success", "Success Match to " + userTwo.getName());
+        }
         return map;
     }
 
