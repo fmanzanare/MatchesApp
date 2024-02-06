@@ -27,9 +27,20 @@ public class UserController {
         return userService.login(recibedUser);
     }
 
-    @PostMapping("/match")
-    public Map<String, String> match(@RequestBody Like like) {
-        return userService.match(like.getUserOneId(), like.getUserTwoId());
+    @GetMapping("/{id}")
+    public User showById(@PathVariable Long id) {
+        return userService.getUserById(id);
     }
+
+    @GetMapping("/likes/{id}")
+    public List<Long> getLikes(@PathVariable Long id) {
+        return userService.getLikesByUserId(id);
+    }
+
+    @GetMapping("/other-likes/{id}")
+    public List<Long> getOtherLikes(@PathVariable Long id) {
+        return userService.getOtherLikesByUserId(id);
+    }
+
 
 }

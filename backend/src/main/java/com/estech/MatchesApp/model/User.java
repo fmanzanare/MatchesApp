@@ -1,5 +1,6 @@
 package com.estech.MatchesApp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,9 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -31,27 +30,12 @@ public class User {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Temporal(TemporalType.DATE)
     private Date registerDate;
-    @ManyToMany
-    @JoinTable(
-            name = "matches",
-            joinColumns = @JoinColumn(name = "userOneId"),
-            inverseJoinColumns = @JoinColumn(name = "userTwoId")
-    )
-    private Set<User> myLikes = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "matches",
-            joinColumns = @JoinColumn(name = "userTwoId"),
-            inverseJoinColumns = @JoinColumn(name = "userOneId")
-    )
-    private Set<User> otherLikesToMe = new HashSet<>();
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userOneId")
+    private List<Like> likesToMe = new ArrayList<>();
 
-    public void addToMyLikes(User user) {
-        myLikes.add(user);
-    }
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userTwoId")
+    private List<Like> likesToOther = new ArrayList<>();
 
-    public void addToOtherLikes(User user) {
-        otherLikesToMe.add(user);
-    }
+
 }
