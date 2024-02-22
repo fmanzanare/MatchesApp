@@ -1,0 +1,8 @@
+<h1>¡Bienvenido a MatchesApp!</h1>
+<p>¡Introduce tu nombre de usuario y conoce a tu alma gemela!</p>
+
+<form method="post" (submit)="login()">
+    <input type="text" name="username" placeholder="Nombre de usuario" [(ngModel)]="username" /><br>
+    <input type="password" name="password" placeholder="Contraseña" [(ngModel)]="password" /><br>
+    <button type="submit">Entrar</button>
+</form>
